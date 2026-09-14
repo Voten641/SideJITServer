@@ -303,7 +303,12 @@ def start_server(verbose, timeout, port, show_installed, pair, version, file, tu
     server = HTTPServer(('0.0.0.0', port), SimpleHTTPRequestHandler)
     local_ip = get_local_ip()
     click.echo(f"Server started on http://{local_ip}:{port}")
-    
+    click.echo(f"Make sure your iPhone is on the same Wi-Fi/LAN as this computer, "
+               f"and that port {port}/tcp is allowed through your firewall "
+               f"(e.g. on Linux with firewalld: "
+               f"sudo firewall-cmd --add-port={port}/tcp --permanent && sudo firewall-cmd --reload) "
+               f"if the device can't reach the server above.")
+
     try:
         server.serve_forever()
     except KeyboardInterrupt:
